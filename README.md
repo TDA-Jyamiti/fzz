@@ -15,3 +15,13 @@ This project is developed by [Tao Hou](https://taohou01.github.io) under the [CG
 This implemented algorithm converts input simplex-wise zigzag filtration to a **cell-wise non-zigzag** filtration of a Delta-complex with the same length, where the cells are copies of the input simplices. Then, the barcode of the original filtration is read from the barcode of the new cell-wise filtration. Details of the algorithm along with the proof can be seen in the paper. 
 
 Computation of the statndard (non-zigzag) persistence is done by invoking the [phat](https://github.com/blazs/phat) library.
+
+## Building
+
+The building utilized [cmake](https://cmake.org/) software, and all building problems should be solvable by inspecting and changing the CMakeLists.txt file. Currently the building has two dependencies: one is boost, which is quite standard (please see CMakeLists.txt); the other is [phat](https://github.com/blazs/phat), for which users first should download the codes themselves. Then, all one needs to do is to include the header files of phat into the project by adding the 
+
+```
+inlude_directories( "path/to/phat/include" ) 
+```
+
+into CMakeLists.txt.
