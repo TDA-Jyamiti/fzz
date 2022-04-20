@@ -66,4 +66,10 @@ d 1
 d 2
 ```
 
-The first line is the number of insertions and deletions in the filtration, and the following lines are the insertions and deletions. Each general line starts with 'i' (indicates an insertion) or 'd' (indicates an deletion) followed by the simplex which is denoted as a set of vertices, increasingly ordered.
+The first line is the number of insertions and deletions in the filtration, and the following lines are the insertions and deletions. Each general line starts with 'i' (indicates an insertion) or 'd' (indicates an deletion) followed by the simplex which is denoted as a set of vertices, increasingly ordered. The output file containing the barcode is written in the current working directory with name starting with that of the input file and ending with 'fzz_pers'.
+
+Note that the input format is **strictly** as described in the paper, e.g., the input filtration **starts and ends with empty complexes** with the following numbering:
+
+```
+F = K_0 <-> K_1 <-> ... <-> K_{m-1} <-> K_m
+```
