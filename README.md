@@ -26,7 +26,7 @@ include_directories( "path/to/phat/include" )
 
 into CMakeLists.txt.
 
-Commands for building are quite standard
+Commands for building are quite standard:
 
 ```
 cd [dir-to-fzz]
@@ -36,5 +36,19 @@ cmake ..
 make
 ```
 
-The software is developed and tested under MacOS. Compiling and running under other platforms shouldn't have any problems both the language and the compiling softwares are cross-platform.
+The software is developed and tested under MacOS. Compiling and running under other platforms shouldn't have any problems because both the language and the compiling softwares are cross-platform.
+
+## Usage
+
+The software runs with following command:
+
+```
+./fzz input_filtration_file
+```
+
+A sample input filtration file is provided with the source codes:
+
+```
+
+```
 
