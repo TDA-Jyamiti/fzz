@@ -1,2 +1,1 @@
-# fzz
-Fast Computation of Zigzag Persistence
+# Fast Computation of Zigzag Persistence
