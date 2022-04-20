@@ -18,10 +18,23 @@ Computation of the statndard (non-zigzag) persistence is done by invoking the [p
 
 ## Building
 
-The building utilized [cmake](https://cmake.org/) software, and all building problems should be solvable by inspecting and changing the CMakeLists.txt file. Currently the building has two dependencies: one is boost, which is quite standard (please see CMakeLists.txt); the other is [phat](https://github.com/blazs/phat), for which users first should download the codes themselves. Then, all one needs to do is to include the header files of phat into the project by adding the 
+The building utilized [cmake](https://cmake.org/) software, and all building problems should be solvable by inspecting and changing the CMakeLists.txt file. Currently the building has two dependencies: one is boost, which is quite standard (please see CMakeLists.txt); the other is [phat](https://github.com/blazs/phat), for which users should first download the codes themselves and then include the header files of phat into the project by adding
 
 ```
-inlude_directories( "path/to/phat/include" ) 
+include_directories( "path/to/phat/include" ) 
 ```
 
 into CMakeLists.txt.
+
+Commands for building are quite standard
+
+```
+cd [dir-to-fzz]
+mkdir build
+cd build
+cmake ..
+make
+```
+
+The software is developed and tested under MacOS. Compiling and running under other platforms shouldn't have any problems both the language and the compiling softwares are cross-platform.
+
