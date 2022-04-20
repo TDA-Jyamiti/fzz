@@ -49,6 +49,21 @@ The software runs with following command:
 A sample input filtration file is provided with the source codes:
 
 ```
-
+14
+i 0
+i 1
+i 2
+i 0 1
+i 0 2
+i 1 2
+i 0 1 2
+d 0 1 2
+d 1 2
+d 0 1
+d 0 2
+d 0
+d 1
+d 2
 ```
 
+The first line is the number of insertions and deletions in the filtration, and the following lines are the insertions and deletions. Each general line starts with 'i' (indicates an insertion) or 'd' (indicates an deletion) followed by the simplex which is denoted as a set of vertices, increasingly ordered.
