@@ -87,4 +87,10 @@ The output for the sample input is as follows:
 0 10 12
 1 8 8
 ```
-Each line denotes an interval in the barcode, with the first number being the dimension and the rest birth and death.
+Each line denotes an interval in the barcode, with the first number being the dimension and the rest being birth and death. Note that the birth and death are start and end of the **closed** integral interval, i.e., a line
+
+```
+p b d
+```
+
+indicates a persistence interval [*b*,*d*] in dimensional *p* starting with the complex K_b and ending with the complex K_d in the filtration.
