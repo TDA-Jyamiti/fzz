@@ -36,7 +36,7 @@ cmake ..
 make
 ```
 
-The software is developed and tested under MacOS. Compiling and running under other platforms shouldn't have any problems because both the language and the compiling softwares are cross-platform.
+The software is developed and tested under MacOS and Linux. 
 
 ## Usage
 
@@ -73,3 +73,18 @@ Note that the input format is **strictly** as described in the paper, e.g., the 
 ```
 F = K_0 <-> K_1 <-> ... <-> K_{m-1} <-> K_m
 ```
+
+where K_0 and K_m are empty complexes. Each simplex-wise inclusion K_i <-> K_{i+1} (differing on only one simplex) is specified in the input filtration file. 
+
+The output for the sample input is as follows:
+
+```
+0 2 3
+0 3 4
+1 6 6
+0 1 13
+0 11 11
+0 10 12
+1 8 8
+```
+Each line denotes an interval in the barcode, with the first number being the dimension and the rest birth and death.
