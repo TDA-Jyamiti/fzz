@@ -66,7 +66,7 @@ d 1
 d 2
 ```
 
-The first line is the number of insertions and deletions in the filtration, and the following lines are the insertions and deletions. Each general line starts with 'i' (indicates an insertion) or 'd' (indicates an deletion) followed by the simplex which is denoted as a set of vertices, increasingly ordered. The output file containing the barcode is written in the current working directory with name starting with that of the input file and ending with 'fzz_pers'.
+The first line is the number of insertions and deletions in the filtration, and the following lines are the insertions and deletions. Each general line starts with `i` (indicates an insertion) or `d` (indicates an deletion) followed by the simplex which is denoted as a set of vertices, increasingly ordered. The output file containing the barcode is written in the current working directory with name starting with that of the input file and ending with `fzz_pers`.
 
 Note that the input format is **strictly** as described in the paper, e.g., the input filtration **starts and ends with empty complexes** with the following numbering:
 
@@ -74,7 +74,7 @@ Note that the input format is **strictly** as described in the paper, e.g., the 
 F = K_0 <-> K_1 <-> ... <-> K_{m-1} <-> K_m
 ```
 
-where K_0 and K_m are empty complexes. Each simplex-wise inclusion K_i <-> K_{i+1} (differing on only one simplex) is specified in the input filtration file. 
+where `K_0` and `K_m` are empty complexes. Each simplex-wise inclusion `K_i <-> K_{i+1}` (differing on only one simplex) is specified in the input filtration file. 
 
 The output for the sample input is as follows:
 
@@ -87,10 +87,4 @@ The output for the sample input is as follows:
 0 10 12
 1 8 8
 ```
-Each line denotes an interval in the barcode, with the first number being the dimension and the rest being birth and death. Note that the birth and death are start and end of the **closed** integral interval, i.e., a line
-
-```
-p b d
-```
-
-indicates a persistence interval [*b*,*d*] in dimensional *p* starting with the complex K_b and ending with the complex K_d in the filtration.
+Each line denotes an interval in the barcode, with the first number being the dimension and the rest being birth and death. Note that the birth and death are start and end of the **closed** integral interval, i.e., a line `p b d` indicates a persistence interval [*b*,*d*] in dimensional *p* starting with the complex `K_b` and ending with the complex `K_d`.
