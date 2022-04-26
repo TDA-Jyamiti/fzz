@@ -1,8 +1,8 @@
 # Fast Computation of Zigzag Persistence
 
-This project implements the algorithm described in the following paper:
+This project implements the algorithm described in the following:
 
-[Fast Computation of Zigzag Persistence](https://)
+[Fast Computation of Zigzag Persistence](https://arxiv.org/pdf/2204.11080.pdf)
 
 by Tamal K. Dey and Tao Hou.
 
@@ -12,7 +12,7 @@ This project is developed by [Tao Hou](https://taohou01.github.io) under the [CG
 
 ## About the Implementation
 
-This implemented algorithm converts input simplex-wise zigzag filtration to a **cell-wise non-zigzag** filtration of a Delta-complex with the same length, where the cells are copies of the input simplices. Then, the barcode of the original filtration is read from the barcode of the new cell-wise filtration. Details of the algorithm along with the proof can be seen in the paper. 
+This implemented algorithm converts input simplex-wise zigzag filtration to a **cell-wise non-zigzag** filtration of a Delta-complex with the same length, where the cells are copies of the input simplices. Then, the barcode of the original filtration is read from the barcode of the new cell-wise filtration. Details of the algorithm along with the proof can be seen in the [paper](https://arxiv.org/pdf/2204.11080.pdf). 
 
 Computation of the statndard (non-zigzag) persistence is done by invoking the [phat](https://github.com/blazs/phat) library.
 
@@ -68,7 +68,7 @@ d 2
 
 The first line is the number of insertions and deletions in the filtration, and the following lines are the insertions and deletions. Each general line starts with `i` (indicates an insertion) or `d` (indicates an deletion) followed by the simplex which is denoted as a set of vertices, increasingly ordered. The output file containing the barcode is written in the current working directory with name starting with that of the input file and ending with `fzz_pers`.
 
-Note that the input format is **strictly** as described in the paper, e.g., the input filtration **starts and ends with empty complexes** with the following numbering:
+Note that the input format is **strictly** as described in the [paper](https://arxiv.org/pdf/2204.11080.pdf), e.g., the input filtration **starts and ends with empty complexes** with the following numbering:
 
 ```
 F = K_0 <-> K_1 <-> ... <-> K_{m-1} <-> K_m
