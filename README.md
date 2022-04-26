@@ -1,6 +1,6 @@
 # Fast Computation of Zigzag Persistence
 
-This project implements the algorithm described in the following:
+This project implements the algorithm described in the following paper:
 
 [Fast Computation of Zigzag Persistence](https://arxiv.org/pdf/2204.11080.pdf)
 
