@@ -4,7 +4,7 @@ This project implements the algorithm described in the following paper:
 
 [Fast Computation of Zigzag Persistence](https://arxiv.org/pdf/2204.11080.pdf)
 
-by Tamal K. Dey and Tao Hou.
+by Tamal K. Dey and Tao Hou, which is accepted by the 2022 European Symposium on Algorithms (ESA).
 
 ## Group Information
 
