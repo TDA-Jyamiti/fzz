@@ -14,7 +14,7 @@ This project is developed by [Tao Hou](https://taohou01.github.io) under the [CG
 
 This implemented algorithm converts input simplex-wise zigzag filtration to a **cell-wise non-zigzag** filtration of a Delta-complex with the same length, where the cells are copies of the input simplices. Then, the barcode of the original filtration is read from the barcode of the new cell-wise filtration. Details of the algorithm along with the proof can be seen in the [paper](https://arxiv.org/pdf/2204.11080.pdf). 
 
-Computation of the statndard (non-zigzag) persistence is done by invoking the [phat](https://github.com/blazs/phat) library.
+Computation of the standard (non-zigzag) persistence is done by invoking the [phat](https://github.com/blazs/phat) library.
 
 ## Building
 
