@@ -8,7 +8,7 @@ by Tamal K. Dey and Tao Hou, which is accepted by the 2022 European Symposium on
 
 ## Group Information
 
-This project is developed by [Tao Hou](https://taohou01.github.io) under the [CGTDA](https://www.cs.purdue.edu/homes/tamaldey/CGTDAwebsite/) research group at Purdue University lead by [Dr. Tamal K. Dey](http://web.cse.ohio-state.edu/~dey.8/).
+This project is developed by [Tao Hou](https://taohou01.github.io) under the [CGTDA](https://www.cs.purdue.edu/homes/tamaldey/CGTDAwebsite/) research group at Purdue University lead by [Dr. Tamal K. Dey](https://www.cs.purdue.edu/homes/tamaldey/).
 
 ## About the Implementation
 
