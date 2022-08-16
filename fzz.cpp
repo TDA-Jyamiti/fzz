@@ -1,12 +1,6 @@
-#include <vector>
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <algorithm>
-#include <unordered_map>
+#include "fzz.h"
 
-#include "utils.h"
+#include <boost/functional/hash.hpp>
 
 // phat headers
 // wrapper algorithm that computes the persistence pairs of a given boundary matrix using a specified algorithm
@@ -22,23 +16,52 @@
 #include <phat/algorithms/row_reduction.h>
 #include <phat/algorithms/twist_reduction.h>
 
+namespace FZZ { 
 
-// 'orig_f_add_id' and 'orig_f_del_id' form a mapping 
-// from the up-down filtration to the original filtration
-std::vector<Integer> orig_f_add_id;
-std::vector<Integer> orig_f_del_id;
+template <class ElemType>
+class VecHash { 
+public:
+    size_t operator()(const std::vector<ElemType>& v) const; 
+};
 
-Integer simp_num;
+template <class ElemType>
+size_t VecHash<ElemType>
+    ::operator()(const std::vector<ElemType>& v) const {
 
-void parseSimplex(const std::string& str, char &op, Simplex &simp) {
-    std::istringstream iss(str);
-    iss >> op;
+    std::size_t seed = 0;
 
-    Integer index;
-    while (iss >> index) { simp.push_back(index); }
+    for (auto e : v) { boost::hash_combine(seed, e); }
+
+    return seed;
 }
 
-void getBoundaryChainPhat(const SimplexIdMap &id_map, 
+template <class ElemType>
+class VecEqual { 
+public:
+    bool operator()(const std::vector<ElemType>& v1, 
+        const std::vector<ElemType>& v2) const; 
+};
+
+template <class ElemType>
+bool VecEqual<ElemType>
+    ::operator()(const std::vector<ElemType>& v1, 
+        const std::vector<ElemType>& v2) const {
+
+    if (v1.size() != v2.size()) { return false; }
+
+    for (auto i = 0; i < v1.size(); i ++) {
+        if (v1[i] != v2[i]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+typedef std::unordered_map< Simplex, Integer,
+    VecHash<Integer>, VecEqual<Integer> > SimplexIdMap;
+
+void getBoundaryChainPhat(const std::vector<SimplexIdMap> &id_maps, 
     const Simplex &simp, std::vector<phat::index> &bound_c) {
 
     bound_c.clear();
@@ -48,13 +71,11 @@ void getBoundaryChainPhat(const SimplexIdMap &id_map,
     bound_c.reserve(simp.size());
 
     Simplex bound_simp(simp.begin()+1, simp.end());
-    bound_c.push_back(id_map.at(bound_simp));
-    // std::cout << "  " << bound_simp << endl;
+    bound_c.push_back(id_maps.at(bound_simp.size() - 1).at(bound_simp));
 
     for (Integer i = 0; i < simp.size()-1; ++i) {
         bound_simp[i] = simp[i];
-        // std::cout << "  " << bound_simp << endl;
-        bound_c.push_back(id_map.at(bound_simp));
+        bound_c.push_back(id_maps.at(bound_simp.size() - 1).at(bound_simp));
     }
 
     std::sort(bound_c.begin(), bound_c.end());
@@ -65,122 +86,79 @@ inline Integer getDim(const std::vector<phat::index> &bound_c) {
     return bound_c.size() - 1;
 }
 
-inline void mapOrdIntv(Integer &b, Integer &d) {
-    // assert(b-1 > 0);
-    // assert(d < orig_f_add_id.size());
+void FastZigzag::compute(const std::vector<Simplex> &filt_simp, 
+        const std::vector<bool> &filt_op,
+        std::vector< std::tuple<Integer, Integer, Integer> > *persistence) {
+    
+    orig_f_add_id.clear();
+    orig_f_del_id.clear();
+    persistence->clear();
 
-    // Up-down interval is same, 
-    // so directly map to interval of input filtration
-    b = orig_f_add_id[b-1] + 1;
-    d = orig_f_add_id[d];
-}
-
-inline void mapRelExtIntv(Integer &p, Integer &b, Integer &d) {
-    // assert(d >= simp_num);
-
-    if (b > simp_num) { // Open-closed
-        // Map to up-down interval
-        std::swap(b, d);
-        b = 3*simp_num - b;
-        d = 3*simp_num - d;
-        p --;
-
-        // Map to interval of input filtration
-        b = orig_f_del_id[b-1-simp_num] + 1;
-        d = orig_f_del_id[d-simp_num];
-    } else { // Closed-closed
-        // Map to up-down interval
-        d = 3*simp_num - d-1;
-        
-        // Map to interval of input filtration
-        b = orig_f_add_id[b-1];
-        d = orig_f_del_id[d-simp_num];
-
-        if (b < d) {
-            b = b+1;
-        } else {
-            std::swap(b, d);
-            b = b+1;
-            p = p-1;
+    simp_num = 0;
+    Integer max_dim = 0;
+    for (auto i = 0; i < filt_op.size(); ++i) {
+        if (filt_op[i]) { 
+            ++simp_num; 
+            if (filt_simp[i].size() - 1 > max_dim) { max_dim = filt_simp[i].size() - 1; }
         }
     }
-}
-
-int main(const int argc, const char *argv[]) {
-    // std::cout << "fzz starts" << std::endl;
-
-    if (argc < 2) 
-    { std::cerr << "Err: no enough input" << std::endl; return -1; }
-
-    const std::string infilename(argv[1]);
-    std::ifstream filt_fin(infilename);
-
-    if (filt_fin) 
-    { ; /* std::cout << "input: " << infilename << std::endl; */ } 
-    else 
-    { std::cerr << "Err: input file open failed" << std::endl; return -1; }
-
-    Integer filt_len;
-    filt_fin >> filt_len;
-
-    std::string purename;
-    getFilePurename(infilename, &purename);
-    std::ofstream pers_fout(purename + "_fzz_pers");
 
     std::vector<phat::index> bound_c;
     // phat::boundary_matrix< phat::vector_vector > bound_chains;
     phat::boundary_matrix< phat::bit_tree_pivot_column > bound_chains;
-    bound_chains.set_num_cols(filt_len + 1);
+    bound_chains.set_num_cols(simp_num * 2 + 1);
 
     // Add the Omega vertex for the coning
     bound_chains.set_col(0, bound_c);
     bound_chains.set_dim(0, 0);
 
-    std::vector<Integer> del_ids;
+    orig_f_add_id.reserve(simp_num);
+    orig_f_del_id.reserve(simp_num);
 
-    SimplexIdMap *p_id_map = new SimplexIdMap();
-    SimplexIdMap &id_map = *p_id_map;
+    std::vector<Integer> del_ids;
+    del_ids.reserve(simp_num);
+
+    std::vector<SimplexIdMap> *p_id_maps = new std::vector<SimplexIdMap>(max_dim+1);
+    std::vector<SimplexIdMap> &id_maps = *p_id_maps;
 
     Integer orig_f_id = 0;
-    std::string line;
-    char op;
-    Simplex simp;
     Integer s_id = 1;
 
-    while (filt_fin) {
-        std::getline(filt_fin, line);
-        if (line.size() == 0) { continue; }
+    for (auto i = 0; i < filt_simp.size(); ++i) {
+        const Simplex &simp = filt_simp[i];
 
-        simp.clear();
-        parseSimplex(line, op, simp);
-
-        if (op == 'i') {
-            getBoundaryChainPhat(id_map, simp, bound_c);
+        if (filt_op[i]) {
+            getBoundaryChainPhat(id_maps, simp, bound_c);
             bound_chains.set_col(s_id, bound_c);
             bound_chains.set_dim(s_id, getDim(bound_c));
 
             // assert(s_id == bound_chains.size()-1);
-            id_map[simp] = s_id;
+            id_maps.at(simp.size() - 1)[simp] = s_id;
             orig_f_add_id.push_back(orig_f_id);
             s_id ++;
-
         } else {
-            del_ids.push_back(id_map[simp]);
+            del_ids.push_back(id_maps.at(simp.size() - 1)[simp]);
+            id_maps.at(simp.size() - 1).erase(simp);
             orig_f_del_id.push_back(orig_f_id);
         }
 
         orig_f_id ++;
     }
 
-    filt_fin.close();
-    // assert(del_ids.size() == s_id-1);
-    delete p_id_map;
+    for (Integer i = id_maps.size() - 1; i >= 0; -- i) {
+        for (const auto &it : id_maps.at(i)) { 
+            del_ids.push_back(it.second); 
+            orig_f_del_id.push_back(orig_f_id);
+            orig_f_id ++;
+        }
+    }
 
-    simp_num = del_ids.size();
-    // assert(simp_num*2 == filt_len);
+    assert(del_ids.size() == s_id-1);
+    delete p_id_maps;
+
+    assert(simp_num == del_ids.size());
 
     std::vector<Integer> cone_sid(simp_num+1);
-    Integer dim;
 
     for (auto del_id_it = del_ids.rbegin(); del_id_it != del_ids.rend(); ++del_id_it) {
         bound_c.clear();
@@ -219,10 +197,10 @@ int main(const int argc, const char *argv[]) {
             if (d < simp_num) { mapOrdIntv(b, d); } 
             else { mapRelExtIntv(p, b, d); }
 
-            pers_fout << p << " " << b << " " << d << std::endl;
+            if (b > filt_simp.size()) { continue; }
+            if (d > filt_simp.size()) { d = filt_simp.size(); }
+            persistence->emplace_back(b, d, p);
     }
-
-    // std::cout << "fzz ends" << std::endl;
-
-    return 0;
 }
+
+} // namespace FZZ { 

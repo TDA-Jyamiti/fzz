@@ -12,9 +12,8 @@ include_directories( "../phat-master/include/" )
 # Boost
 find_package( Boost 1.5 )
 include_directories( ${Boost_INCLUDE_DIRS} )
-link_directories( ${Boost_LIBRARY_DIRS} )
 
 add_executable( fzz
+    fzz_main.cpp
     fzz.cpp
-    utils.cpp
     ) 
