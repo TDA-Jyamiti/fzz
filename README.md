@@ -4,7 +4,14 @@ This project implements the algorithm described in the following paper:
 
 [Fast Computation of Zigzag Persistence](https://arxiv.org/pdf/2204.11080.pdf)
 
-by Tamal K. Dey and Tao Hou, which is accepted by the 2022 European Symposium on Algorithms (ESA). The programming language used is C++.
+by Tamal K. Dey and Tao Hou, which appears on the 2022 European Symposium on Algorithms (ESA). The programming language used is C++.
+
+## Change Log
+
+### 2022.8.16
+
+- Wrap the computation into class `FZZ::FastZigzag` for easy invoking from c++ codes
+- Filtration does not need to end with empty complex
 
 ## Group Information
 
@@ -40,7 +47,9 @@ The software is developed and tested under MacOS and Linux.
 
 ## Usage
 
-The software runs with following command:
+### Using from command line
+
+The compiled software runs with following command:
 
 ```
 ./fzz input_filtration_file
@@ -49,7 +58,6 @@ The software runs with following command:
 A sample input filtration file is provided with the source codes:
 
 ```
-14
 i 0
 i 1
 i 2
@@ -60,21 +68,17 @@ i 0 1 2
 d 0 1 2
 d 1 2
 d 0 1
-d 0 2
-d 0
-d 1
-d 2
 ```
 
-The first line is the number of insertions and deletions in the filtration, and the following lines are the insertions and deletions. Each general line starts with `i` (indicates an insertion) or `d` (indicates an deletion) followed by the simplex which is denoted as a set of vertices, increasingly ordered. The output file containing the barcode is written in the current working directory with name starting with that of the input file and ending with `fzz_pers`.
+Each line specifies an insertion (`i`) or deletion (`d`) and the simplex being inserted or deleted, which is denoted as a set of vertices, increasingly ordered. The output file containing the barcode is written in the current working directory with name starting with that of the input file and ending with `_pers`.
 
-Note that the input format is **strictly** as described in the [paper](https://arxiv.org/pdf/2204.11080.pdf), e.g., the input filtration **starts and ends with empty complexes** with the following numbering:
+The input format is as described in the [paper](https://arxiv.org/pdf/2204.11080.pdf), with the starting complex beging empty (the last complex does *not* need to be empty). The filtration has the following numbering (`K_0` is empty):
 
 ```
 F = K_0 <-> K_1 <-> ... <-> K_{m-1} <-> K_m
 ```
 
-where `K_0` and `K_m` are empty complexes. Each simplex-wise inclusion `K_i <-> K_{i+1}` (differing on only one simplex) is specified in the input filtration file. 
+where each simplex-wise inclusion `K_i <-> K_{i+1}` (differing on only one simplex) is specified in the input filtration file. 
 
 The output for the sample input is as follows:
 
