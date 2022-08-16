@@ -94,7 +94,7 @@ Each line denotes an interval in the barcode, with the first number being the di
 
 ### Invoking from C++ source codes
 
-To integrate the computation into your own source codes written in C++, you just need to include the sourcde files `fzz.h` and `fzz.cpp` (which defines the class `FZZ::FastZigzag`). The function which does the computation is the `compute` member function in `FZZ::FastZigzag`. See the provided example main function in `fzz_main.cpp` and the comments in `fzz.h` for the usage.
+To integrate the computation into your own source codes written in C++, you just need to include the source files `fzz.h` and `fzz.cpp` (which define the class `FZZ::FastZigzag`). The function which does the computation is the `compute` member function in `FZZ::FastZigzag`. See the provided example main function in `fzz_main.cpp` and the comments in `fzz.h` for the usage.
 
 ## License
 
