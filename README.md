@@ -70,9 +70,9 @@ d 1 2
 d 0 1
 ```
 
-Each line specifies an insertion (`i`) or deletion (`d`) and the simplex being inserted or deleted, which is denoted as a set of vertices, increasingly ordered. The output file containing the barcode is written in the current working directory with name starting with that of the input file and ending with `_pers`.
+Each line specifies an insertion (`i`) or deletion (`d`) and the simplex being inserted or deleted; the simplex is denoted as a set of vertices, increasingly ordered. An output file containing the barcode is written to the current working directory with name starting with that of the input file and ending with `_pers`.
 
-The input format is as described in the [paper](https://arxiv.org/pdf/2204.11080.pdf), with the starting complex beging empty (the last complex does *not* need to be empty). The filtration has the following numbering (`K_0` is empty):
+The input format is as described in the [paper](https://arxiv.org/pdf/2204.11080.pdf), with the starting complex being empty (the last complex does *not* need to be empty). The filtration has the following numbering (`K_0` is empty):
 
 ```
 F = K_0 <-> K_1 <-> ... <-> K_{m-1} <-> K_m
@@ -86,9 +86,8 @@ The output for the sample input is as follows:
 0 2 3
 0 3 4
 1 6 6
-0 1 13
-0 11 11
-0 10 12
+0 1 10
+0 10 10
 1 8 8
 ```
 Each line denotes an interval in the barcode, with the first number being the dimension and the rest being birth and death. Note that the birth and death are start and end of the **closed** integral interval, i.e., a line `p b d` indicates a persistence interval [*b*,*d*] in dimensional *p* starting with the complex `K_b` and ending with the complex `K_d`.
