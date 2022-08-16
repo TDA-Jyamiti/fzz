@@ -10,7 +10,7 @@ by Tamal K. Dey and Tao Hou, which appears on the 2022 European Symposium on Alg
 
 ### 2022.8.16
 
-- Wrap the computation into class `FZZ::FastZigzag` for easy invoking from c++ codes
+- Wrap the computation into class `FZZ::FastZigzag` for easy invoking from C++ codes
 - Filtration does not need to end with empty complex
 
 ## Group Information
@@ -91,6 +91,10 @@ The output for the sample input is as follows:
 1 8 8
 ```
 Each line denotes an interval in the barcode, with the first number being the dimension and the rest being birth and death. Note that the birth and death are start and end of the **closed** integral interval, i.e., a line `p b d` indicates a persistence interval [*b*,*d*] in dimensional *p* starting with the complex `K_b` and ending with the complex `K_d`.
+
+### Invoking from C++ source codes
+
+To integrate the computation into your own source codes written in C++, you just need to include the sourcde files `fzz.h` and `fzz.cpp` (which defines the class `FZZ::FastZigzag`). The function which does the computation is the `compute` member function in `FZZ::FastZigzag`. See the provided example main function in `fzz_main.cpp` and the comments in `fzz.h` for the usage.
 
 ## License
 
