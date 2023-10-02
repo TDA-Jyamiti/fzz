@@ -8,7 +8,11 @@ by Tamal K. Dey and Tao Hou, which appears on the 2022 European Symposium on Alg
 
 ## Change Log
 
-### 2022.8.16
+### 2023.10.01
+
+- We are pleased to announce python bindings of Fast Zigzag
+
+### 2022.08.16
 
 - Wrap the computation into class `FZZ::FastZigzag` for easy invoking from C++ codes
 - Filtration does not need to end with empty complex
@@ -22,6 +26,24 @@ This project is developed by [Tao Hou](https://taohou01.github.io) under the [CG
 This implemented algorithm converts input simplex-wise zigzag filtration to a **cell-wise non-zigzag** filtration of a Delta-complex with the same length, where the cells are copies of the input simplices. Then, the barcode of the original filtration is read from the barcode of the new cell-wise filtration. Details of the algorithm along with the proof can be seen in the [paper](https://arxiv.org/pdf/2204.11080.pdf). 
 
 Computation of the standard (non-zigzag) persistence is done by invoking the [phat](https://github.com/blazs/phat) library.
+
+## Using Python Version
+We recommend using anaconda virtual environment. Start by creating a conda environment. We recommend using python >= 3.9.
+
+```
+conda create -n fzz python=3.9
+conda install boost pybind11
+```
+
+Assuming you have cloned the repository to ROOT_DIR, do 
+
+
+```
+cd ROOT_DIR
+python setup.py build install
+```
+
+Check test_fzz.py for usage instruction. The rest of the document explains the C++ implementation in detail.
 
 ## Building
 
