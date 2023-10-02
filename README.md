@@ -32,6 +32,7 @@ We recommend using anaconda virtual environment. Start by creating a conda envir
 
 ```
 conda create -n fzz python=3.9
+conda activate fzz
 conda install boost pybind11
 ```
 
