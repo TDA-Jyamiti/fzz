@@ -10,7 +10,7 @@ by Tamal K. Dey and Tao Hou, which appears on the 2022 European Symposium on Alg
 
 ### 2023.10.01
 
-- We are pleased to announce python bindings of Fast Zigzag
+- We are pleased to announce python bindings of FastZigzag
 
 ### 2022.08.16
 

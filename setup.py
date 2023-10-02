@@ -13,13 +13,13 @@ setup(name='pyfzz',
       author='Soham Mukherjee',
       description="A simple Python wrapper for Fast Zigzag originally written by Tao Hou in C++",
       author_email='soham.juetce@gmail.com',
-      python_requires='>=3.9',
+      python_requires='>=3.7',
       classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: BSD License',
         'Operating System :: MacOS :: MacOS X',
     ],
       ext_modules=[Extension('fzz',include_dirs=[os.path.join(__cpp_src_dir,'phat-include')],
-                             sources=src_files, language='c++17', extra_compile_args=['-std=c++17'])],
+                             sources=src_files, extra_compile_args=['-std=c++17'])],
                              )
 
