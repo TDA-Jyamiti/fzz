@@ -20,4 +20,4 @@ class pyfzz:
     def write_file(self, filename, data: List[Tuple[int, int, int]]):
         with open(filename, 'w') as f:
             for bar in data:
-                f.write(f'{bar[0]} {bar[1]} {bar[2]}\n')
+                f.write(f'{bar[2]} {bar[0]} {bar[1]}\n')
