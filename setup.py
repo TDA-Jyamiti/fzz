@@ -8,6 +8,7 @@ __module_file_dir = pth.dirname(pth.realpath(__file__))
 __cpp_src_dir = pth.join(__module_file_dir, 'pyfzz')
 src_files = []
 src_files.append(pth.join(__cpp_src_dir, 'pyfzz.cpp'))
+src_files.append(pth.join(__cpp_src_dir, '../fzz.cpp'))
 setup(name='pyfzz',
       version='0.0.0',
       author='Soham Mukherjee',
