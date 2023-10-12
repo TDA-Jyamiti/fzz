@@ -4,7 +4,7 @@ This project implements the algorithm described in the following paper:
 
 [Fast Computation of Zigzag Persistence](https://arxiv.org/pdf/2204.11080.pdf)
 
-by Tamal K. Dey and Tao Hou, which appears on the 2022 European Symposium on Algorithms (ESA). The programming language used is C++.
+by Tamal K. Dey and Tao Hou, which appears on the 2022 European Symposium on Algorithms (ESA). The programming language used is C++, but you can also use **Python** to invoke the libary with the python bindings.
 
 ## Change Log
 
@@ -23,12 +23,21 @@ This project is developed by [Tao Hou](https://taohou01.github.io) under the [CG
 
 ## About the Implementation
 
-This implemented algorithm converts input simplex-wise zigzag filtration to a **cell-wise non-zigzag** filtration of a Delta-complex with the same length, where the cells are copies of the input simplices. Then, the barcode of the original filtration is read from the barcode of the new cell-wise filtration. Details of the algorithm along with the proof can be seen in the [paper](https://arxiv.org/pdf/2204.11080.pdf). 
+This implemented algorithm converts the input simplex-wise zigzag filtration to a **cell-wise non-zigzag** filtration of a Delta-complex with the same length, where the cells are copies of the input simplices. Then, the barcode of the original filtration is read from the barcode of the new cell-wise filtration. Details of the algorithm along with the proof can be seen in the [paper](https://arxiv.org/pdf/2204.11080.pdf). 
 
 Computation of the standard (non-zigzag) persistence is done by invoking the [phat](https://github.com/blazs/phat) library.
 
 ## Using Python Version
-We recommend using anaconda virtual environment. Start by creating a conda environment. We recommend using python >= 3.7.
+Assuming you have cloned the repository to a directory denoted as 'FZZ_REPO_DIR', do the following to install the FastZigzag python package:
+
+```
+cd [FZZ_REPO_DIR]
+python -m pip install -e .
+```
+
+Check `test_fzz.py` for usage example.
+
+We also recommend using anaconda ([homepage](https://www.anaconda.com/)) to manage your python development environment. The following several lines create a virtual environment dedicated for a test run of FastZigzag and install necessary packages. After that you can install FastZigzag as specified above to the dedicated environment.
 
 ```
 conda create -n fzz python=3.7
@@ -36,18 +45,8 @@ conda activate fzz
 conda install boost pybind11
 ```
 
-Assuming you have cloned the repository to ROOT_DIR, do 
-
-
-```
-cd ROOT_DIR
-python -m pip install -e .
-```
-
-Check `test_fzz.py` for usage example.
-
 ### Python API
-import the pyfzz class by:
+Import the pyfzz class by:
 
 
 ```python
@@ -73,9 +72,9 @@ Alternatively you can use `fzz.read_file('sample_filt')` to read the zigzag filt
 
 
 
-## Building
+## C++ Building
 
-The building utilized [cmake](https://cmake.org/) software, and all building problems should be solvable by inspecting and changing the CMakeLists.txt file. Currently the building has two dependencies: one is boost, which is quite standard (please see CMakeLists.txt); the other is [phat](https://github.com/blazs/phat), for which users should first download the codes themselves and then include the header files of phat into the project by adding
+Building the C++ programs utilized [cmake](https://cmake.org/) software, and all building problems should be solvable by inspecting and changing the CMakeLists.txt file. Currently the building has two dependencies: one is boost, which is quite standard (please see CMakeLists.txt); the other is [phat](https://github.com/blazs/phat), for which users should first download the codes themselves and then include the header files of phat into the project by adding
 
 ```
 include_directories( "path/to/phat/include" ) 
@@ -95,11 +94,11 @@ make
 
 The software is developed and tested under MacOS and Linux. 
 
-## Usage
+## Using the C++ Program
 
 ### Using from command line
 
-The compiled software runs with following command:
+The compiled software runs with the following command:
 
 ```
 ./fzz input_filtration_file
