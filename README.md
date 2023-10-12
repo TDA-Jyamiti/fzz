@@ -19,7 +19,7 @@ by Tamal K. Dey and Tao Hou, which appears on the 2022 European Symposium on Alg
 
 ## Group Information
 
-This project is developed by [Tao Hou](https://taohou01.github.io) under the [CGTDA](https://www.cs.purdue.edu/homes/tamaldey/CGTDAwebsite/) research group at Purdue University lead by [Dr. Tamal K. Dey](https://www.cs.purdue.edu/homes/tamaldey/). Python bindings are due to [Soham Mukherjee](https://www.cs.purdue.edu/homes/mukher26/) who also belongs to the [CGTDA](https://www.cs.purdue.edu/homes/tamaldey/CGTDAwebsite/) research group and is a Ph.D. student of Prof. Dey.
+This project is developed by [Tao Hou](https://taohou01.github.io) under the [CGTDA](https://www.cs.purdue.edu/homes/tamaldey/CGTDAwebsite/) research group at Purdue University lead by [Dr. Tamal K. Dey](https://www.cs.purdue.edu/homes/tamaldey/). Python bindings are due to [Soham Mukherjee](https://www.cs.purdue.edu/homes/mukher26/) who also belongs to the [CGTDA](https://www.cs.purdue.edu/homes/tamaldey/CGTDAwebsite/) research group.
 
 ## About the Implementation
 
@@ -46,7 +46,7 @@ conda install boost pybind11
 ```
 
 ### Python API
-Import the pyfzz class by:
+Import the `pyfzz` class by:
 
 
 ```python
@@ -58,16 +58,16 @@ Create a class instance by:
 ```python
 fzz = pyfzz()
 ```
-Now you can use the instance to compute barcodes by invoking `fzz.compute_zigzag(data)`. `data` should be a list of tuples where each tuple consists of an insertion (`i`) or deletion (`d`) and the simplex being inserted or deleted; the simplex is denoted as a list of vertices, increasingly ordered. For example a small code snippet should look like this:
+Now you can use the instance to compute barcodes by invoking `fzz.compute_zigzag(data)`. `data` encodes the input zigzag filtration which should be a list of tuples where each tuple consists of an insertion (`i`) or deletion (`d`) and the simplex being inserted or deleted; the simplex is denoted as a list of vertices, increasingly ordered. For example, a small code snippet should look like this:
 
 ```python
 fzz = pyfzz()
 data = [('i', [0]), ('i', [1]), ('i', [0, 1]), ('d', [0, 1]), ('d', [1])]
 bars = fzz.compute_zigzag(data)
 ```
-`bars` contains the barcode, a list of tuples, where each tuple is of the form `(b, d, p)` with `b` denoting the birth index, `d` denoting the death index and `p` being the homology dimension.
+`bars` contains the barcode, a list of tuples, where each tuple is of the form `(b, d, p)` with `b` denoting the birth index, `d` denoting the death index and `p` being the homology dimension. For additional details about the format of a filtration, please consult the section [Filtration format](#filtration-format).
 
-Alternatively you can use `fzz.read_file('sample_filt')` to read the zigzag filtration and `fzz.write_file('sample_filt_pers', bars)` to write the barcodes to a file. The file format is described in the subsection titled [Using from command line](#using-from-command-line)
+Alternatively you can use `fzz.read_file('sample_filt')` to read the zigzag filtration and `fzz.write_file('sample_filt_pers', bars)` to write the barcodes to a file. The file format is described in the section [Filtration format](#filtration-format).
 
 
 
@@ -103,6 +103,8 @@ The compiled software runs with the following command:
 ```
 ./fzz input_filtration_file
 ```
+
+### Filtration format
 
 A sample input filtration file is provided with the source codes:
 
