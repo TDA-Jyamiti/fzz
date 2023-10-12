@@ -41,7 +41,7 @@ Assuming you have cloned the repository to ROOT_DIR, do
 
 ```
 cd ROOT_DIR
-python setup.py build install
+python -m pip install -e .
 ```
 
 Check `test_fzz.py` for usage example.
