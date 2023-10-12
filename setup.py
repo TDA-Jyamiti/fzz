@@ -7,7 +7,7 @@ import os
 __module_file_dir = pth.dirname(pth.realpath(__file__))
 __cpp_src_dir = pth.join(__module_file_dir, 'pyfzz')
 src_files = []
-src_files.append(pth.join(__cpp_src_dir, 'fzz.cpp'))
+src_files.append(pth.join(__cpp_src_dir, 'pyfzz.cpp'))
 setup(name='pyfzz',
       version='0.0.0',
       author='Soham Mukherjee',
@@ -19,7 +19,7 @@ setup(name='pyfzz',
         'License :: OSI Approved :: BSD License',
         'Operating System :: MacOS :: MacOS X',
     ],
-      ext_modules=[Extension('fzz',include_dirs=[os.path.join(__cpp_src_dir,'phat-include')],
+      ext_modules=[Extension('fzz',include_dirs=[os.path.join(__cpp_src_dir,'phat-include'), '..'],
                              sources=src_files, extra_compile_args=['-std=c++17'])],
                              )
 
