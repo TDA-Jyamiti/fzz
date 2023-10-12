@@ -59,7 +59,7 @@ Create a class instance by:
 ```python
 fzz = pyfzz()
 ```
-Now you can use the instance to compute barcodes by invoking `fzz.compute_zigzag(data)`. `data` should be a list of tuples where each tuple consists of an insertion (`i`) or deletion (`d`) and the simplex being inserted or deleted; the simplex is denoted as a set of vertices, increasingly ordered. For example a small code snippet should look like this:
+Now you can use the instance to compute barcodes by invoking `fzz.compute_zigzag(data)`. `data` should be a list of tuples where each tuple consists of an insertion (`i`) or deletion (`d`) and the simplex being inserted or deleted; the simplex is denoted as a list of vertices, increasingly ordered. For example a small code snippet should look like this:
 
 ```python
 fzz = pyfzz()
@@ -120,7 +120,7 @@ d 1 2
 d 0 1
 ```
 
-Each line specifies an insertion (`i`) or deletion (`d`) and the simplex being inserted or deleted; the simplex is denoted as a set of vertices, increasingly ordered. An output file containing the barcode is written to the current working directory with name starting with that of the input file and ending with `_pers`.
+Each line specifies an insertion (`i`) or deletion (`d`) and the simplex being inserted or deleted; the simplex is denoted as a list of vertices, increasingly ordered. An output file containing the barcode is written to the current working directory with name starting with that of the input file and ending with `_pers`.
 
 The input format is as described in the [paper](https://arxiv.org/pdf/2204.11080.pdf), with the starting complex being empty (the last complex does *not* need to be empty). The filtration has the following numbering (`K_0` is empty):
 
