@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <unordered_map>
 #include <memory>
+#include <cassert>
 
 namespace FZZ { 
 

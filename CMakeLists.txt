@@ -13,6 +13,8 @@ include_directories( "../phat-master/include/" )
 find_package( Boost 1.5 )
 include_directories( ${Boost_INCLUDE_DIRS} )
 
+add_compile_definitions(NDEBUG)
+
 add_executable( fzz
     fzz_main.cpp
     fzz.cpp
